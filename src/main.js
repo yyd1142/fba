@@ -23,6 +23,10 @@ router.map({
   '/register': {
     component: require('./views/register.vue'),
     name: 'register'
+  },
+  '/inquiry': {
+    component: require('./views/inquiry.vue'),
+    name: 'inquiry'
   }
 });
 
