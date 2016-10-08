@@ -27,6 +27,10 @@ router.map({
   '/inquiry': {
     component: require('./views/inquiry.vue'),
     name: 'inquiry'
+  },
+  '/place_order': {
+    component: require('./views/placeOrder.vue'),
+    name: 'placeOrder'
   }
 });
 

@@ -6,7 +6,7 @@ body{
   font-size: 16px;
 }
 
-div, ul, li, span, input, form{
+div, ul, li, span, input, form, table{
   box-sizing: border-box;
 }
 
@@ -21,4 +21,35 @@ ul, li{
   width: 100%;
   margin: 0 auto;
   position: relative;
+}
+
+.expand-transition {
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    opacity: 1;
+}
+
+/* .expand-enter 定义进入的开始状态 */
+/* .expand-leave 定义离开的结束状态 */
+.expand-enter, .expand-leave {
+  height: 0;
+  opacity: 0;
+}
+
+// 表单验证
+.form-error{
+  label{
+    color: #9F3A38;
+  }
+  input{
+    background: #FFF6F6;
+    border-color: #E0B4B4;
+    color: #9F3A38;
+    border: 1px solid;
+    border-radius: 2px;
+    border-style: double !important;
+  }
+    
 }

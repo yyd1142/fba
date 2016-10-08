@@ -8,10 +8,12 @@ h2{
 }
 
 .inquiry-view{
-        width: 1000px;
+    width: 1000px;
     margin: 0 auto;
     position: relative;
     min-height: 400px;
+    background-color: #F4F5F6;
+    margin-bottom: 70px;
 }
 
 .inquiry-header{
@@ -117,14 +119,15 @@ h2{
 }
 
 .goods-table-view{
-    width: 345px;
-    height: 62px;
+    width: 698px;
+    height: 60px;
     background-color: #ffffff;
     margin-left: 15px;
-    line-height: 62px;
-    margin-bottom: 10px;
+    line-height: 60px;
+    border-bottom: 1px solid #F4F5F6;
+    position: relative;
     input{
-            width: 70px;
+            width: 90px;
     height: 33px;
     border: 1px solid #EBEBEB;
     color: #B6B6B6;
@@ -136,7 +139,7 @@ h2{
 .goods-number{
     color: #3E3D3D;
     font-size: 14px;
-    margin: 0 70px 0 10px;
+    margin: 0 24px 0 10px;
 }
 
 .goods-unit{
@@ -150,7 +153,7 @@ h2{
     width: 19px;
     height: 19px;
     position: absolute;
-    left: 440px;
+    left: 789px;
     top: 20px;
 }
 
@@ -174,17 +177,25 @@ h2{
 }
 
 .input-check{
-    width: 90px;
     margin-left: 76px;
+    padding-top: 3px;
 }
 
 .check-name{
     color: #626262;
     font-size: 14px;
+    margin-right: 10px;
 }
 
 .switch-button-false{
     background: url(../../assets/switch_colse.png) 0 0 no-repeat;
+}
+
+.switch-button-true{
+    background: url(../../assets/switch_open.png) 0 0 no-repeat;
+}
+
+.switch-button-false, .switch-button-true{
     width: 34px;
     height: 18px;
     display: block;
@@ -196,4 +207,522 @@ h2{
     height: 40px;
     margin: 0 0 0 74px;
     padding-top: 7px;
+}
+
+.form-action{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 110px;
+    padding-bottom: 20px;
+}
+
+.submit-button{
+    width: 160px;
+    height: 60px;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    line-height: 60px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.inquiry-button{
+    background-color: #157CC2;
+}
+
+// 报价详情
+
+.inquiry-result-header{
+    width: 100%;
+    height: 47px;
+    line-height: 47px;
+    display: block;
+    background-color: #B6B5B5;
+    span{
+        color: #ffffff;
+        font-size: 14px;
+    }
+    span:nth-child(1){
+        float: LEFT;
+        margin-left: 70px;
+    }
+    span:nth-child(2){
+        width: 70px;
+        text-align: center;
+        margin: auto;
+        height: 47px;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+    span:nth-child(3){
+        width: auto;
+        float: right;
+        margin-right: 70px;
+    }
+}
+
+.inquiry-table{
+    width: 100%;
+    display: block;
+    margin-top: 40px;
+    thead{
+        width: 100%;
+        display: block;
+        margin-bottom: 15px;
+        tr{
+            width: 100%;
+            height: 14px;
+            margin: 0 auto;
+            display: flex;
+            th{
+                width: 20%;
+                height: 14px;
+                font-size: 14px;
+                color: #3E3D3D;
+                float: left;
+                line-height: 14px;
+                text-align: center;
+            }
+        }
+    }
+    tbody{
+            width: 100%;
+            display: block;
+        tr{
+            width: 100%;
+            display: flex;
+            td{
+                width: 20%;
+                text-align: center;
+                font-size: 14px;
+                color: #626262;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}
+
+.left-td{
+    text-align: left !important;
+}
+
+.table-panle{
+    padding: 0 70px;
+}
+
+.result-rule{
+    color: #626262;
+    font-size: 14px;
+    text-align: left;
+    margin: 57px 0 0 0;
+}
+
+.total-price{
+    margin-left: auto;
+    width: 200px;
+    text-align: right;
+    margin-top: -40px;
+    font-size: 18px;
+    color: #3E3D3D;
+    span{
+        font-size: 30px;
+        color: #3BA5FF;
+        margin-left: 10px;
+    }
+}
+
+.order-button{
+    background-color: #FFBA00
+}
+
+.collect-button{
+    width: 120px;
+    height: 60px;
+    margin-left: auto;
+    margin-top: -60px;
+    margin-right: 70px;
+    text-align: center;
+    line-height: 60px;
+    background-color: #CCCBCB;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.collect-button:hover{
+    background-color: #b5b3b3;
+}
+
+.order-button:hover{
+    background-color: #f3c54a;
+}
+
+.inquiry-button:hover{
+    background-color: #086fb5;
+}
+
+#resultPanle{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.address-filed{
+    width: 178px;
+    display: inline-flex;
+    height: 30px;
+    margin-left: 15px;
+    position: relative;
+}
+
+.th-address-list{
+   width: 100%;
+    float: left;
+    height: 30px;
+    margin-top: 0px;
+    background-color: #ffffff;
+}
+
+.address-detail{
+    width: 771px;
+    height: 30px;
+    display: block;
+    margin-left: 79px;
+    margin-top: 6px;
+    input{
+        width: 100%;
+        border-style: none;
+        height: 30px;
+        font-size: 14px;
+        color: #3E3D3D;
+        padding-left: 10px;
+    }
+}
+
+.sanjiao-address{
+    margin: auto;
+    right: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.blue{
+    background-color: #157CC2;
+}
+
+// 下单
+.place-order-header{
+    background-color: #157CC2;
+    position: relative;
+    span{
+        font-size: 18px;
+        text-align: center;
+        width: 500px;
+        float: none !important;
+        position: absolute;
+        margin: auto !important;
+        left: 0;
+        right: 0;
+    }
+}
+
+.order-info-view{
+    width: 882px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 70px;
+    position: relative;
+}
+
+.order-info-filed{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-info-header{
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    background-color: #EEECEC;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    position: relative;
+    span{
+        color: #A0A0A0;
+        font-size: 18px;
+    }
+    span:last-child{
+        float: right;
+        margin-right: 10px;
+    }
+}
+
+.two-fileds{
+        width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 30px;
+    margin-bottom: 15px;
+}
+
+.left-filed{
+    float: left;
+    span{
+         text-align: left;
+     }
+}
+
+.right-filed{
+    float: right;
+    span{
+         text-align: right;
+     }
+}
+
+.left-filed, .right-filed{
+     width: auto;
+     position: relative;
+     span{
+         font-size: 14px;
+         color: #626262;
+     }
+    label{
+        width: 64px;
+        font-size: 14px;
+        color: #626262;
+        float: left;
+        line-height: 30px;
+        text-align: right;
+    }
+    input{
+        width: 290px;
+        border-style: none;
+        height: 30px;
+        margin-left: 15px;
+        font-size: 14px;
+        color: #B6B6B6;
+        padding-left: 10px;
+    }
+    select{
+        width: 188px;
+        height: 30px;
+        background-color: #ffffff;
+        margin-left: 15px;
+    }
+    textarea{
+        width: 278px;
+        border-style: none;
+        height: 102px;
+        margin-left: 15px;
+        font-size: 14px;
+        padding-left: 10px;
+    }
+}
+
+.shouhuo-input{
+    width: 290px;
+    input{
+        float: right;
+        margin-bottom: 6px;
+    }
+    textarea{
+        margin-left: 0;
+    }
+}
+
+.sanjiao-orderinfo{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 10px;
+}
+
+.order-one-filed{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    input{
+        width: 772px;
+        height: 30px;
+        border-style: none;
+        margin-left: 15px;
+        padding-left: 10px;
+        font-size: 14px;
+    }
+    label{
+        width: 95px;
+        float: left;
+        text-align: right;
+        font-size: 14px;
+        color: #626262;
+    }
+}
+
+.star-icon{
+    background: url(../../assets/star.png) 0 0 no-repeat;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 9px;
+    height: 11px;
+    right: -20px;
+}
+
+.remove-goods-icon{
+    background: url(../../assets/delete.png) 0 0 no-repeat;
+    width: 14px;
+    height: 16px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 22px;
+    cursor: pointer;
+}
+
+.fapiao-label{
+    width: 95px !important;
+    margin-left: -31px;
+}
+
+.rule-fapiao{
+    color: #FB6363;
+    font-size: 14px;
+    width: 100%;
+    float: left;
+    padding-left: 79px;
+    margin: 19px 0;
+}
+
+.plus-big-icon{
+    background: url(../../assets/plus_1.png) 0 0 no-repeat;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    margin: auto;
+    bottom: 0;
+    cursor: pointer;
+}
+
+// 上传图片
+
+.order-upload-view{
+    width: 200px;
+    position: absolute;
+    right: 0;
+    top: 64px;
+    img{
+        width: 200px;
+        height: 200px;
+        float: right;
+    }
+}
+
+.upload-button{
+    width: 200px;
+    height: 30px;
+    background-color: #FFBA00;
+    float: right;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    color: #ffffff;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.upload-button-e, .upload-button-d{
+    height: 30px;  
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    float: left;
+    cursor: pointer;
+}
+
+.upload-button-e{
+    width: 60px;
+    background-color: #FFBA00; 
+}
+
+.upload-button-d{
+    width: 130px;
+    background-color: #BABAB9;
+    margin-left: 10px;
+}
+
+.mark-view{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 300px;
+    span{
+        font-size: 14px;
+        color: #626262;
+        width: 64px;
+        float: left;
+        text-align: right;
+        margin-bottom: 6px;
+    }
+}
+
+.mark-table-view{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mark-table-cell{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    color: #C7C7C7;
+    font-size: 18px;
+    padding-left: 30px;
+    margin-bottom: 6px;
+}
+
+.submit-order-button{
+    width: 250px;
+    height: 60px;
+    background-color: #FFBA00;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 60px;
+    padding-left: 116px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 79px;
+    margin-bottom: 180px;
+    cursor: pointer;
+    position: relative;
+}
+
+.submit-order-button:hover{
+    background-color: #f3c54a;
+}
+
+.success-icon{
+    background: url(../../assets/success.png) 0 0 no-repeat;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 87px;
 }

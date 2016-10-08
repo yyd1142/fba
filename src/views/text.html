@@ -1,0 +1,35 @@
+<div class="inquiry-view" v-if="resultPanle" transition="expand">
+    <div class="inquiry-result-header">
+        <span>报价编号: FX13314D2</span>
+        <span>费用详情</span>
+        <span>报价有效期: 2016-10-19</span>
+    </div>
+    <div class="table-panle">
+        <table class="inquiry-table">
+            <thead>
+                <tr>
+                    <th class="left-td">费用项目</th>
+                    <th>单价（元）</th>
+                    <th>数量</th>
+                    <th>单位</th>
+                    <th>金额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="todo in 4">
+                    <td class="left-td">运费</td>
+                    <td>20.00</td>
+                    <td>340</td>
+                    <td>KGS</td>
+                    <td>4560.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="result-rule">＊如产生额外费用，实报实销</div>
+        <div class="total-price">合计: <span>￥7600.00</span></div>
+    </div>
+    <div class="form-action">
+        <div class="submit-button order-button" @click="submit">下单</div>
+        <div class="collect-button">收藏</div>
+    </div>
+</div>

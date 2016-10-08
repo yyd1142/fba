@@ -1,0 +1,48 @@
+<div class="hint-view" v-if="panleShow" transition="expand">
+    <div class="hint-warp">
+        <div class="hint-content">
+            <span v-if="code == 0">操作成功</span>
+            <span v-if="code == 1">具体业务逻辑错误</span>
+            <span v-if="code == 2">未知错误</span>
+            <span v-if="code == 3">缺少参数</span>
+            <span v-if="code == 4">方法未找到</span>
+            <span v-if="code == 5">用户已经存在</span>
+            <span v-if="code == 6">用户不存在</span>
+            <span v-if="code == 7">密码错误</span>
+            <span v-if="code == 8">会话不存在，目前用于重置密码会话使用</span>
+            <span v-if="code == 9">会话不存在，目前用于重置密码会话使用</span>
+            <span v-if="code == 10">找不到记录</span>
+            <span v-if="code == 11">记录已经存在</span>
+            <span v-if="code == 12">会话验证失败</span>
+            <span v-if="code == 13">会话失效，超时</span>
+            <span v-if="code == 14">更新失败</span>
+            <span v-if="code == 15">没有权限</span>
+            <span v-if="code == 16">账号没有激活</span>
+            <span v-if="code == 17">账号被禁用</span>
+            <span>{{message}}</span>
+        </div>
+        <div class="hint-action">
+            <div class="hint-button-submit" @click="submit">确认</div>
+            <div class="hint-button-cancel" @click="cancel">取消</div>
+        </div>
+    </div>
+</div>
+
+<!--// RES_Success: 0,
+// RES_BusinessError: 1,       //具体业务逻辑错误
+// RES_UnknownError: 2,        //未知错误
+// RES_ParamsLack: 3,          //缺少参数
+// RES_MethodNotFound: 4,      //方法未找到
+// RES_UserExist: 5,           //用户已经存在
+// RES_UserNotFound: 6,        //用户不存在
+// RES_PasswordError: 7,       //密码错误
+// RES_SessionNotFound: 8,     //会话不存在，目前用于重置密码会话使用
+// RES_SessionTimeout: 9,      //会话不存在，目前用于重置密码会话使用
+// RES_RecordNotFound: 10,     //找不到记录
+// RES_RecordExist: 11,        //记录已经存在
+// RES_AuthSessionFail: 12,    //会话验证失败
+// RES_AuthSessionExpired: 13, //会话失效，超时
+// RES_UpdateFailed: 14,       //更新失败
+// RES_NoPermission: 15,       //没有权限
+// RES_AccountNotActivated: 16,//账号没有激活
+// RES_AccountDisable: 17      //账号被禁用-->

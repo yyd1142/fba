@@ -5,8 +5,8 @@ import footerComponent from '../components/footer'
 module.exports = {
     data() {
         return {
-            originatingAddress: '',
-            destinationAddress: ''
+            originatingAddress: false,
+            destinationAddress: false
         }
 
     },
@@ -19,9 +19,11 @@ module.exports = {
     },
     methods: {
         originatingAddressList(){
+            // console.log(this.originatingAddress);
             this.originatingAddress = this.originatingAddress ? false : true;
         },
         destinationAddressList(){
+            // console.log(this.destinationAddress);
             this.destinationAddress = this.destinationAddress ? false : true;
         }
     }

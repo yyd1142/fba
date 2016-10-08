@@ -31,7 +31,7 @@
         <li class="address-table-cell">英国</li>
         <li class="address-table-cell">非洲</li>
       </ul>
-      <div class="search-button">
+      <div class="search-button" v-link="{path: '/inquiry'}">
         <i class="search-icon"></i>
       </div>
     </div>

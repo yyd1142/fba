@@ -17,9 +17,9 @@ function getCookie(name) {
     var baseURL = null;
     var _debug = getCookie('DEBUG');
     if (_debug == 'true') {
-        baseURL = 'http://10.0.1.15:3001/';
+        baseURL = 'http://10.0.1.8:8091/';
     } else {
-        baseURL = 'http://api.activity.yiqiyuedu.cn/';
+        baseURL = 'http://10.0.1.8:8091/';
     }
 
     var asyncData = {
@@ -35,7 +35,7 @@ function getCookie(name) {
         methods: {
             $httpGet: function (service, params, cb) {
                 // GET request
-                cb = cb || function(){};
+                cb = cb || function () { };
                 var queryArray = new Array();
                 for (var key in params)
                     queryArray.push(key + "=" + params[key]);
@@ -56,11 +56,17 @@ function getCookie(name) {
             },
             $httpPost: function (service, params, postBody, cb) {
                 // POST request
-                var queryArray = new Array();
-                for (var key in params)
-                    queryArray.push(key + "=" + params[key]);
-                var queryString = queryArray.join("&");
-                var queryURL = baseURL + service + '?' + queryString;
+                var queryURL = '';
+                if (params != null) {
+                    var queryArray = new Array();
+                    for (var key in params)
+                        queryArray.push(key + "=" + params[key]);
+                    var queryString = queryArray.join("&");
+                    queryURL = baseURL + service + '?' + queryString;
+                } else {
+                    queryURL = baseURL + service;
+                }
+
                 this.$http.post(queryURL, postBody).then((response) => {
                     // success callback
                     var data = response.data;
@@ -81,7 +87,7 @@ function getCookie(name) {
         install: function (Vue, options) {
             vue = Vue;
             Vue.options = Vue.util.mergeOptions(Vue.options, asyncData);
-            Vue.http.options.credentials = true;
+            // Vue.http.options.credentials = true;
         }
     }
 

@@ -1,0 +1,12 @@
+<div class="rule-view" v-if="panleShow" transition="expand">
+    <div class="hidden-view" @click="close"></div>
+    <div class="rule-content">
+        <div class="rule-title">条款须知</div>
+        <div class="rule-content-item">
+            <span v-for="tode in 20">我们以 Vue 数据绑定的快速导览开始。如果你对高级概述更感兴趣，可查看这篇博文。尝试 Vue.js 最简单的方法是使用 JSFiddle Hello World 例子。在浏览器新标签页中打开它，跟着我们查看一些基础示例。如果你喜欢用包管理器下载/安装，查看安装教程。</span>
+        </div>
+        <div class="rule-aciton">
+            <div class="rule-ok-button" @click="submit"><i class="jj-icon"></i>已阅读条款，确认订单</div>
+        </div>
+    </div>
+</div>
