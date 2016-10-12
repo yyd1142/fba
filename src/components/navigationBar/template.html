@@ -1,0 +1,7 @@
+<nav class="user-nav-view">
+    <ul class="nav-table-view">
+        <li class="nav-table-cell" v-for="item in tabItems" :class="item.className">
+            <a v-link="{path: item.url + '#top'}">{{item.name}}</a>
+        </li>
+    </ul>
+</nav>

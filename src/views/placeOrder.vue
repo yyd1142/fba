@@ -362,4 +362,4 @@
   <footer-component></footer-component>
 </template>
 <script src="../js/placeOrder.js" type="text/javascript"></script>
-<style src="../style/inquiry.less" lang="less"></style>
+<style src="../style/inquiry.less" lang="less" scoped></style>

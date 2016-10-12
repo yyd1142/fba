@@ -6,20 +6,18 @@
         <div class="inquiry-header">
             <div class="originating-address">
                 <label>起运地</label>
-                <select class="address-list select-list">
-                  <option>罗湖</option>
-                  <option>宝安</option>
-                  <option>广州</option>
+                <select class="address-list select-list" v-model="startAddress" v-on:change="goodsTypeList">
+                    <option value="">请选择起运地</option>
+                    <option v-for="item in originatingAddressItems" :value="item">{{item.address}}</option>
                 </select>
                 <i class="sanjiao-icon sanjiao-header"></i>
             </div>
             <i class="fly-icon"></i>
             <div class="destination-address">
-                <label>起运地</label>
-                <select class="address-list select-list">
-                  <option>美国</option>
-                  <option>东京</option>
-                  <option>非洲</option>
+                <label>目的地</label>
+                <select class="address-list select-list" v-model="endAddress" v-on:change="goodsTypeList">
+                    <option value="">请选择目的地</option>
+                    <option v-for="item in destinationAddressItems" :value="item">{{item.address}}</option>
                 </select>
                 <i class="sanjiao-icon sanjiao-header"></i>
             </div>
@@ -27,48 +25,50 @@
         <form class="inquiry-form">
           <div class="filed-inquiry">
             <label>FBA仓库:</label>
-            <select class="select-list fab-list">
-              <option>请选择FBA仓库</option>
-              <option>英国,NA,OldStars</option>
-              <option>美国,FN,OldStars</option>
-            </select>
-            <i class="sanjiao-icon sanjiao-fba"></i>
+            <input class="select-list fab-list" type="text" placeholder='输出仓库地址' v-model="fbaAddress" v-on:input="findFBA"/>
+            <ul class="fba-table-view" v-if="hasData" transition="expand">
+                <li class="fba-table-cell" v-if="notData">没有找到结果</li>
+                <li class="fba-table-cell" 
+                    v-for="item in fbaItems" 
+                    v-text="item.fullAddress" 
+                    @click="chooseFBA(item)"></li>
+            </ul>
           </div>
           <div class="filed-inquiry">
             <label>品名:</label>
-            <select class="select-list fab-list">
-              <option>请选择品名</option>
-              <option>英国,NA,OldStars</option>
-              <option>美国,FN,OldStars</option>
+            <select class="select-list fab-list" v-model="goodsTypeID" v-on:change="logisticsType">
+              <option value="">请选择品名</option>
+              <option value="" v-if="goodsTypeNotdata">暂无数据</option>
+              <option v-for="item in goodsTypeItems" :value="item.goodsTypeID">{{item.goodsTypeName}}</option>
             </select>
             <i class="sanjiao-icon sanjiao-fba"></i>
           </div>
           <div class="filed-inquiry">
                 <label>货物信息:</label>
-                <i class="goods-plus-icon"></i>
+                <i class="goods-plus-icon" @click="addGoodsInfo"></i>
                 <ul class="goods-table">
-                    <li class="goods-table-view" v-for="todo in 2">
+                    <li class="goods-table-view" v-for="goods in goodsInfo">
                         <span class='goods-number'>{{$index + 1}}</span>
-                        <input type="number" placeholder="重量" />
+                        <input type="number" placeholder="重量" v-model="goods.wide"/>
                         <span class="goods-unit">KG</span>
-                        <input type="number" placeholder="长" />
+                        <input type="number" placeholder="长" v-model="goods.long"/>
                         <span class="goods-unit">CM</span>
-                        <input type="number" placeholder="宽" />
+                        <input type="number" placeholder="宽" v-model="goods.width"/>
                         <span class="goods-unit">CM</span>
-                        <input type="number" placeholder="高" />
+                        <input type="number" placeholder="高" v-model="goods.heigth"/>
                         <span class="goods-unit">CM</span>
-                        <input type="number" placeholder="数量" />
+                        <input type="number" placeholder="数量" v-model="goods.number"/>
                         <span class="goods-unit">箱</span>
-                        <i class="remove-goods-icon" v-if="$index != 0"></i>
+                        <i class="remove-goods-icon" v-if="$index != 0" @click="removeGoodsInfo($index)"></i>
                     </li>
                 </ul>
                 <div class="rule-goods">＊如有多箱货物，请按数量填写</div>
             </div>
-          <div class="filed-inquiry">
+          <div class="filed-inquiry" v-if="logistics">
                 <label>物流方式:</label>
                 <div class="input-check">
-                    <input type="radio" name="type"><span class="check-name">双清</span>
-                    <input type="radio" name="type"><span class="check-name">快递</span>
+                    <input type="radio" name="type" v-if="shuangQing" value="1" v-model="logisticsID"><span class="check-name" v-if="shuangQing">双清</span>
+                    <input type="radio" name="type" v-if="kuaiDi" value="2" v-model="logisticsID"><span class="check-name" v-if="kuaiDi">快递</span>
                 </div>
             </div>
             <div class="filed-inquiry">
@@ -115,16 +115,6 @@
               </select>
                     <i class="sanjiao-icon sanjiao-address"></i>
                 </div>
-                <div class="address-detail">
-                    <input type="text" placeholder="详细地址" />
-                </div>
-                <div class="address-filed" style="margin: 6px 0 0 79px;">
-                    <select class="select-list th-address-list">
-                <option>预订上门时间</option>
-                <option>10:00</option>
-              </select>
-                    <i class="sanjiao-icon sanjiao-address"></i>
-                </div>
             </div>
           <div class="form-action">
             <div class="submit-button inquiry-button" @click="price">询价</div>
@@ -168,10 +158,9 @@
             </div>      
       </div>
      </div>
-     
   </div>
   <rule-component :panle-show.sync="rulePanle"></rule-component>
   <footer-component></footer-component>
 </template>
 <script src="../js/inquiry.js" type="text/javascript"></script>
-<style src="../style/inquiry.less" lang="less"></style>
+<style src="../style/inquiry.less" lang="less" scoped></style>

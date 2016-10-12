@@ -1,0 +1,23 @@
+<div class="hint-view" v-if="panleShow" transition="expand">
+    <div class="hint-warp">
+        <div class="hint-header">
+            <i class="hint-close-icon" @click="close"></i>
+        </div>
+        <div class="hint-content-order">
+            <div class="hint-item">
+                <span>订单号</span>
+                <span>FBM1133223323</span>
+            </div>
+            <div class="hint-item">
+                <span>应付金额</span>
+                <span>￥20.00</span>
+            </div>
+            <div class="hint-item" style="margin-top: 15px;">
+                <span>应付金额</span>
+                <img src="../../../assets/wechat_pay.png" />
+                <img src="../../../assets/alipay.png" />
+            </div>
+            <div class="pay-button" @click="submit">前往支付</div>
+        </div>
+    </div>
+</div>

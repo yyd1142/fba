@@ -31,6 +31,22 @@ router.map({
   '/place_order': {
     component: require('./views/placeOrder.vue'),
     name: 'placeOrder'
+  },
+  '/user_info': {
+    component: require('./views/userInfo.vue'),
+    name: 'user'
+  },
+  '/user_save': {
+    component: require('./views/userSave.vue'),
+    name: 'user'
+  },
+  '/user_order': {
+    component: require('./views/userOrder.vue'),
+    name: 'user'
+  },
+  '/user_pay': {
+    component: require('./views/userPay.vue'),
+    name: 'user'
   }
 });
 

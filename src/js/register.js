@@ -9,11 +9,11 @@ var isClick = true;
 module.exports = {
     data() {
         return {
-            item: {},
+            item: { userName: '', password: '', comfirmPassword: '', mobile: '', email: '' },
             hintShow: false,
             message: '',
             errorCode: '',
-            validationCode: ''
+            emptyItems: ''
         }
 
     },
@@ -22,13 +22,23 @@ module.exports = {
         footerComponent,
         hintView
     },
-    ready(){
-        
+    ready() {
+
     },
     methods: {
         register() {
             let item = this.item;
-            if(!isClick){
+            let itemArr = [];
+            for (let key in item) {
+                if (item[key] == '' || item[key] == null) {
+                    itemArr.push(key);
+                }
+            }
+            this.emptyItems = itemArr;
+            if (itemArr.length != 0) {
+                return false;
+            }
+            if (!isClick) {
                 return false;
             }
             isClick = false;
@@ -41,16 +51,16 @@ module.exports = {
                 password: md5(item.password)
             };
             this.$httpPost('user', null, body, function (code, data) {
-                 if(code == 0){
-                     document.body.style.overflow = 'hidden';
-                     self.errorCode = code;
-                     self.hintShow = true;
-                 }else{
-                     document.body.style.overflow = 'hidden';
-                     self.errorCode = code;
-                     self.hintShow = true;
-                 }
-                 isClick = true;
+                if (code == 0) {
+                    document.body.style.overflow = 'hidden';
+                    self.errorCode = code;
+                    self.hintShow = true;
+                } else {
+                    document.body.style.overflow = 'hidden';
+                    self.errorCode = code;
+                    self.hintShow = true;
+                }
+                isClick = true;
             });
         }
     }

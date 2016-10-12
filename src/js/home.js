@@ -2,11 +2,16 @@
 import headerComponent from '../components/headerHome'
 import footerComponent from '../components/footer'
 
+var _isOriginatingAddressItems = [];
+var _isDestinationAddressItems = [];
+var _isOriginatingAddressItemsUpdate = true;
+var _isDestinationAddressItemsUpdate = true;
+
 module.exports = {
     data() {
         return {
-            originatingAddress: false,
-            destinationAddress: false
+            originatingAddressItems: [],
+            destinationAddressItems: []
         }
 
     },
@@ -15,16 +20,45 @@ module.exports = {
         footerComponent
     },
     ready() {
-        
+        this.originatingAddressList();
+        this.destinationAddressList();
     },
     methods: {
-        originatingAddressList(){
-            // console.log(this.originatingAddress);
-            this.originatingAddress = this.originatingAddress ? false : true;
+        originatingAddressList() {
+            if (!_isOriginatingAddressItemsUpdate) {
+                this.originatingAddressItems = _isOriginatingAddressItems;
+                return false;
+            }
+            let self = this;
+            let params = {
+                m: 'list',
+                type: 1
+            }
+            this.$httpGet('order', params, function (code, data) {
+                if (code == 0) {
+                    self.originatingAddressItems = data.response;
+                    _isOriginatingAddressItems = data.response;
+                    _isOriginatingAddressItemsUpdate = false;
+                }
+            });
         },
-        destinationAddressList(){
-            // console.log(this.destinationAddress);
-            this.destinationAddress = this.destinationAddress ? false : true;
+        destinationAddressList() {
+            if (!_isDestinationAddressItemsUpdate) {
+                this.destinationAddressItems = _isDestinationAddressItems;
+                return false;
+            }
+            let self = this;
+            let params = {
+                m: 'list',
+                type: 2
+            }
+            this.$httpGet('order', params, function (code, data) {
+                if (code == 0) {
+                    self.destinationAddressItems = data.response;
+                    _isDestinationAddressItems = data.response;
+                    _isDestinationAddressItemsUpdate = false;
+                }
+            });
         }
     }
 };

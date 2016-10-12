@@ -5,33 +5,19 @@
       <span>亚马逊</span><span>FBA询价</span>
     </div>
     <div class="address-select">
-      <div class="originating-address" @click="originatingAddressList">
+      <div class="originating-address">
         <span>起始地&nbsp;&nbsp;&nbsp;|</span>
-        <span>上海</span>
+        <select class="address-list-select">
+            <option v-for="item in originatingAddressItems" :value="item.addressID">{{item.address}}</option>
+        </select>
       </div>
-      <ul class="address-table-view" v-if="originatingAddress" transition="expand">
-        <li class="address-table-cell">成都</li>
-        <li class="address-table-cell">深圳</li>
-        <li class="address-table-cell">广州</li>
-        <li class="address-table-cell">珠海</li>
-        <li class="address-table-cell">北京</li>
-        <li class="address-table-cell">成都</li>
-        <li class="address-table-cell">深圳</li>
-        <li class="address-table-cell">广州</li>
-        <li class="address-table-cell">珠海</li>
-        <li class="address-table-cell">北京</li>
-      </ul>
-      <div class="destination-address" @click="destinationAddressList">
+      <div class="destination-address">
         <span>目的地&nbsp;&nbsp;&nbsp;|</span>
-        <span>美国</span>
+        <select class="address-list-select">
+            <option v-for="item in destinationAddressItems" :value="item.addressID">{{item.address}}</option>
+        </select>
       </div>
-      <ul class="address-table-view destination" v-if="destinationAddress" transition="expand">
-        <li class="address-table-cell">加拿大</li>
-        <li class="address-table-cell">日本</li>
-        <li class="address-table-cell">英国</li>
-        <li class="address-table-cell">非洲</li>
-      </ul>
-      <div class="search-button" v-link="{path: '/inquiry'}">
+      <div class="search-button" v-link="{path: '/inquiry#top'}">
         <i class="search-icon"></i>
       </div>
     </div>

@@ -12,7 +12,7 @@
         </div>
         <div class="filed register">
           <label>确认密码</label>
-          <input type="password" placeholder="再次输入码密码" v-model="item.comfirmPassword">
+          <input type="password" placeholder="再次输入密码" v-model="item.comfirmPassword">
         </div>
         <div class="filed register">
           <label>手机号码</label>
@@ -31,11 +31,11 @@
           <i class="sanjiao-icon sanjiao-register"></i>
         </div>
         <ul class="error-table-view">
-          <li class="error-table-cell" v-if="item.password != item.comfirmPassword">两次密码输入不一致</li>
-          <li class="error-table-cell" v-if="validationCode == 1">密码不能为空</li>
-          <li class="error-table-cell" v-if="validationCode == 2">用户名不能为空</li>
-          <li class="error-table-cell" v-if="validationCode == 3">手机号码不能为空</li>
-          <li class="error-table-cell" v-if="validationCode == 4">邮箱不能为空</li>
+          <li class="error-table-cell" v-if="item.password != item.comfirmPassword">Please enter the same password</li>
+          <li class="error-table-cell" v-for="item in emptyItems">
+            <span v-if="item != 'comfirmPassword'">Please enter {{item}}</span>
+            <span v-else>Please enter the password again</span>
+          </li>
         </ul>
         <div class="login-button" @click="register">注册</div>
         <div class="go-register" v-link="{path: '/login'}">返回登录</div>
@@ -45,4 +45,4 @@
   <footer-component></footer-component>
 </template>
 <script src="../js/register.js" type="text/javascript"></script>
-<style src="../style/login.less" lang="less"></style>
+<style src="../style/login.less" lang="less" scoped></style>
