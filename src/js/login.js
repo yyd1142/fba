@@ -50,6 +50,7 @@ module.exports = {
             this.$httpGet('user', params, function (code, data) {
                 if (code == 0) {
                     self.$router.go('#top');
+                    localStorage.setItem('userInfo', JSON.stringify(data));
                 } else {
                     document.body.style.overflow = 'hidden';
                     self.errorCode = code;

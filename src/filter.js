@@ -42,3 +42,27 @@ Vue.filter('actDescFilter', function (desc) {
         return desc;
     }
 });
+
+Vue.filter('unitFilter', function (value) {
+    if (value == 1) {
+        return 'BL'
+    } else {
+        return 'KG'
+    }
+})
+
+Vue.filter('searchFilter', function (data, value) {
+    let newArray = [];
+    if (value.trim()) {
+        let text = value.toLowerCase();
+        data.forEach(function (item) {
+            let fullAddress = item.fullAddress.toLowerCase();
+            if (fullAddress.indexOf(text) >= 0) {
+                newArray.push(item);
+            }
+        });
+        return newArray;
+    } else {
+        return 0;
+    }
+})

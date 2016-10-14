@@ -11,9 +11,10 @@ module.exports = {
     data() {
         return {
             originatingAddressItems: [],
-            destinationAddressItems: []
+            destinationAddressItems: [],
+            startAddress: '',
+            endAddress: ''
         }
-
     },
     components: {
         headerComponent,
@@ -59,6 +60,12 @@ module.exports = {
                     _isDestinationAddressItemsUpdate = false;
                 }
             });
+        },
+        startAddressSelect(){
+            sessionStorage.setItem('startAddress', JSON.stringify(this.startAddress));
+        },
+        endAddressSelect(){
+            sessionStorage.setItem('endAddress', JSON.stringify(this.endAddress));
         }
     }
 };

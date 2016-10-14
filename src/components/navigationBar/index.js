@@ -4,7 +4,7 @@ var tabItems = [{ name: '用户信息', className: 'nav-active', url: '/user_inf
     { name: '我的委托', className: '', url: '/user_order' },
     { name: '费用结算', className: '', url: '/user_pay' },
     { name: '常用地址', className: '', url: '/user_address' },
-    { name: '系统消息', className: '', url: '/user_messagel' }];
+    { name: '系统消息', className: '', url: '/user_message' }];
 
 require("./style.less");
 module.exports = {

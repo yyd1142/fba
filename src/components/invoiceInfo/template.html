@@ -1,0 +1,83 @@
+<div class="order-info-view">
+	<div class="order-info-filed">
+		<div class="order-info-header">
+			<span>商业发票</span>
+			<span>日期 2018-10-10</span>
+		</div>
+		<div class="two-fileds">
+			<div class="left-filed">
+				<span>出口发货国家: 中国</span>
+			</div>
+			<div class="right-filed">
+				<span>目的地国家: 美国</span>
+			</div>
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>发货日期:</label>
+			<input type="date" placeholder="Text">
+		</div>
+		<div class="right-filed">
+			<label>收货人:</label>
+			<input type="text" placeholder="Text">
+		</div>
+	</div>
+	<div class="two-fileds" style="height: 182px;">
+		<div class="left-filed">
+			<label>发货人:</label>
+			<textarea placeholder="发货人"></textarea>
+		</div>
+		<div class="right-filed shouhuo-input">
+			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text">
+			<textarea placeholder="发货人"></textarea>
+		</div>
+	</div>
+	<div class="filed-inquiry">
+		<label>货物信息:</label>
+		<i class="goods-plus-icon"></i>
+		<ul class="goods-table">
+			<li class="goods-table-view" v-for="todo in 2">
+				<span class='goods-number'>{{$index + 1}}</span>
+				<input type="number" placeholder="重量" />
+				<span class="goods-unit">KG</span>
+				<input type="number" placeholder="长" />
+				<span class="goods-unit">CM</span>
+				<input type="number" placeholder="宽" />
+				<span class="goods-unit">CM</span>
+				<input type="number" placeholder="高" />
+				<span class="goods-unit">CM</span>
+				<input type="number" placeholder="数量" />
+				<span class="goods-unit">箱</span>
+				<i class="remove-goods-icon" v-if="$index != 0"></i>
+			</li>
+		</ul>
+		<div class="rule-goods">＊如有多箱货物，请按数量填写</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>合计:</label>
+			<input type="text" placeholder="Text">
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>总件数:</label>
+			<input type="text" placeholder="Text">
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>总数量:</label>
+			<input type="text" placeholder="Text">
+		</div>
+		<div class="rule-fapiao">我声明发票上所填信息均真实准确</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label class="fapiao-label">发票人签名:</label>
+			<input type="text" placeholder="Text">
+		</div>
+	</div>
+</div>

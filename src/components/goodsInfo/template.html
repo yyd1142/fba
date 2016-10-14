@@ -1,0 +1,118 @@
+<div class="inquiry-view">
+	<div class="place-order-distable" v-if="item.isPlaceOrder"></div>
+	<div class="inquiry-header">
+		<div class="originating-address">
+			<label>起运地</label>
+			<select class="address-list select-list" v-model="item.startAddress" v-on:change="goodsTypeList">
+                    <option value="">请选择起运地</option>
+                    <option v-for="todo in originatingAddressItems" :value="todo">{{todo.address}}</option>
+                </select>
+			<i class="sanjiao-icon sanjiao-header"></i>
+		</div>
+		<i class="fly-icon"></i>
+		<div class="destination-address">
+			<label>目的地</label>
+			<select class="address-list select-list" v-model="item.endAddress" v-on:change="goodsTypeList">
+                    <option value="">请选择目的地</option>
+                    <option v-for="todo in destinationAddressItems" :value="todo">{{todo.address}}</option>
+                </select>
+			<i class="sanjiao-icon sanjiao-header"></i>
+		</div>
+	</div>
+	<form class="inquiry-form">
+		<div class="filed-inquiry">
+			<label>FBA仓库:</label>
+			<input class="select-list fab-list" type="text" placeholder='输出仓库地址' v-model="item.fbaAddress" />
+			<ul class="fba-table-view" v-if="item.hasData">
+				<li class="fba-table-cell" v-for="todo in fbaItems | searchFilter item.fbaAddress" @click="chooseFBA(todo)">{{todo.fullAddress}}</li>
+			</ul>
+		</div>
+		<div class="filed-inquiry">
+			<label>品名:</label>
+			<select class="select-list fab-list" v-model="item.goodsTypeID" v-on:change="logisticsType">
+              <option value="">请选择品名</option>
+              <option value="" v-if="goodsTypeNotdata">暂无数据</option>
+              <option v-for="todo in goodsTypeItems" :value="todo.goodsTypeID">{{todo.goodsTypeName}}</option>
+            </select>
+			<i class="sanjiao-icon sanjiao-fba"></i>
+		</div>
+		<div class="filed-inquiry">
+			<label>货物信息:</label>
+			<i class="goods-plus-icon" @click="addGoodsInfo"></i>
+			<ul class="goods-table">
+				<li class="goods-table-view" v-for="goods in item.goodsInfo">
+					<span class='goods-number'>{{$index + 1}}</span>
+					<input type="number" placeholder="重量" v-model="goods.weight " number/>
+					<span class="goods-unit">KG</span>
+					<input type="number" placeholder="长" v-model="goods.long " number/>
+					<span class="goods-unit">CM</span>
+					<input type="number" placeholder="宽" v-model="goods.wide " number/>
+					<span class="goods-unit">CM</span>
+					<input type="number" placeholder="高" v-model="goods.high " number/>
+					<span class="goods-unit">CM</span>
+					<input type="number" placeholder="数量" v-model="goods.number " number/>
+					<span class="goods-unit">箱</span>
+					<i class="remove-goods-icon" v-if="$index != 0" @click="removeGoodsInfo($index)"></i>
+				</li>
+			</ul>
+			<div class="rule-goods">＊如有多箱货物，请按数量填写</div>
+		</div>
+		<div class="filed-inquiry" v-if="logisticsShow" transition="expand">
+			<label>物流方式:</label>
+			<div class="input-check">
+				<input type="radio" name="type" v-if="shuangQing" value="1" v-model="item.logisticsID " number>
+				<span class="check-name" v-if="shuangQing">双清</span>
+				<input type="radio" name="type" v-if="kuaiDi" value="2" v-model="item.logisticsID " number>
+				<span class="check-name" v-if="kuaiDi">快递</span>
+			</div>
+		</div>
+		<div class="filed-inquiry">
+			<label>报关方式:</label>
+			<div class="input-check">
+				<input type="radio" name="todo" v-model="item.declare " value="1" number><span class="check-name">双清包税</span>
+				<input type="radio" name="todo" v-model="item.declare " value="2" number><span class="check-name">单独报关</span>
+			</div>
+		</div>
+		<div class="filed-inquiry">
+			<label>上门提货:</label>
+			<div class="tihuo-button" @click="item.switchButton = item.switchButton ? false : true">
+				<i class="switch-button-true" v-if="item.switchButton"></i>
+				<i class="switch-button-false" v-else></i>
+			</div>
+		</div>
+		<div class="filed-inquiry" v-if="item.switchButton" transition="expand">
+			<label>提货地址:</label>
+			<div class="address-filed">
+				<select class="select-list th-address-list" v-model="item.provinceID" v-on:change="cityList">
+                            <option value="">省份</option>
+                            <option v-for="todo in provinces" :value="todo.ID">{{todo.Name}}</option>
+                        </select>
+				<i class="sanjiao-icon sanjiao-address"></i>
+			</div>
+			<div class="address-filed">
+				<select class="select-list th-address-list" v-model="item.cityID" v-on:change="townList">
+                            <option value="">城市</option>
+                            <option v-for="todo in cities" :value="todo.ID">{{todo.Name}}</option>
+                        </select>
+				<i class="sanjiao-icon sanjiao-address"></i>
+			</div>
+			<div class="address-filed">
+				<select class="select-list th-address-list" v-model="item.townID" v-on:change="streetList">
+                            <option value="">区/县城</option>
+                            <option v-for="todo in towns" :value="todo.ID">{{todo.Name}}</option>
+                        </select>
+				<i class="sanjiao-icon sanjiao-address"></i>
+			</div>
+			<div class="address-filed">
+				<select class="select-list th-address-list" v-model="item.streetID">
+                            <option value="">街道</option>
+                            <option v-for="todo in streets" :value="todo.ID">{{todo.Name}}</option>
+                        </select>
+				<i class="sanjiao-icon sanjiao-address"></i>
+			</div>
+		</div>
+	</form>
+	<div class="form-action" v-if="!item.isPlaceOrder">
+		<div class="submit-button inquiry-button" @click="submit">询价</div>
+	</div>
+</div>

@@ -7,6 +7,7 @@ import App from './App.vue'
 Vue.use(VueRouter)
 Vue.use(vueService)
 
+
 var router = new VueRouter({
   history: true
 })
@@ -46,6 +47,14 @@ router.map({
   },
   '/user_pay': {
     component: require('./views/userPay.vue'),
+    name: 'user'
+  },
+  '/user_address': {
+    component: require('./views/userAddress.vue'),
+    name: 'user'
+  },
+  '/user_message': {
+    component: require('./views/userMessage.vue'),
     name: 'user'
   }
 });
