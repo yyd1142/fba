@@ -1,8 +1,8 @@
 <div class="inquiry-view">
 	<div class="inquiry-result-header blue">
-		<span>报价编号: {{item.inquiryItem.inquiryID}}</span>
+		<span>报价编号: {{priceItems.inquiryID}}</span>
 		<span>费用详情</span>
-		<span>报价有效期: {{item.inquiryItem.expires | dateFormatFilter}}</span>
+		<span>报价有效期: {{priceItems.expires | dateFormatFilter}}</span>
 	</div>
 	<div class="table-panle">
 		<table class="inquiry-table">
@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="todo in item.inquiryItem.pricesInfo">
+				<tr v-for="todo in priceItems.pricesInfo">
 					<td class="left-td">{{todo.cname}}</td>
 					<td>{{todo.unitPrice}}</td>
 					<td>{{todo.number}}</td>
@@ -27,6 +27,6 @@
 		</table>
         <div class="place-order-table-footer">
 		<div class="result-rule">＊如产生额外费用，实报实销</div>
-		<div class="total-price">合计: <span>￥{{item.inquiryItem.totalPrice}}</span></div>
+		<div class="total-price">合计: <span>￥{{priceItems.totalPrice}}</span></div>
 	</div>
 </div>

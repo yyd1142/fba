@@ -1,0 +1,182 @@
+<div class="order-info-view">
+	<div class="order-info-filed">
+		<div class="order-info-header">
+			<span>货品信息</span>
+			<span></span>
+			<i class="plus-big-icon" @click="addGoods"></i>
+		</div>
+	</div>
+	<div class="goods-tb-view">
+		<table class="goods-tb" border="1">
+			<thead>
+				<tr>
+					<th>商品SKU</th>
+					<th>中文名称</th>
+					<th>英文名称</th>
+					<th>申报数量</th>
+					<th>单位</th>
+					<th>清关申报单价</th>
+					<th>单个成品净重</th>
+					<th>毛重</th>
+					<th>国内申报单价</th>
+					<th>箱号</th>
+					<th colspan="3">外箱规格</th>
+					<th>货箱编号</th>
+					<th>带电货物编号</th>
+					<th>是否退税</th>
+					<th>退税品</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th>个</th>
+					<th>USD</th>
+					<th>KG</th>
+					<th>KG</th>
+					<th></th>
+					<th></th>
+					<th>长CM</th>
+					<th>宽CM</th>
+					<th>高CM</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in goodsItems">
+					<th>{{item.goodSKU}}</th>
+					<th>{{item.cname}}</th>
+					<th>{{item.ename}}</th>
+					<th>{{item.number}}</th>
+					<th>{{item.unit}}</th>
+					<th>{{item.customsUnit}}</th>
+					<th>{{item.netWeight}}</th>
+					<th>{{item.grossWeight}}</th>
+					<th>{{item.domesticUnit}}</th>
+					<th>{{item.boxNo}}</th>
+					<th>{{item.long}}</th>
+					<th>{{item.wide}}</th>
+					<th>{{item.high}}</th>
+					<th>{{item.boxNumber}}</th>
+					<th>{{item.batteryGoodNo}}</th>
+					<th>{{item.isTax}}</th>
+					<th>{{item.drawbackName}}</th>
+					<th>
+						<div class="goods-deleted-button" @click="removeGoods($index)">删除</div>
+					</th>
+				</tr>
+				<tr v-for="todo in 5">
+					<th v-for="item in 18"></th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="goods-tb-form" v-if="addGoodsPanel" transition="expand">
+	<div class="goods-tb-form-warp">
+		<div class="goods-tb-form-content">
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label class="fapiao-label">商品SKU:</label>
+					<input type="text" placeholder="请输入商品SKU" v-model="goods.goodSKU">
+				</div>
+				<div class="right-filed">
+					<label class="fapiao-label"><span>*</span>中文名称:</label>
+					<input type="text" placeholder="请输入中文名称" v-model="goods.cname">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label class="fapiao-label"><span>*</span>英文名称:</label>
+					<input type="text" placeholder="请输入英文名称" v-model="goods.ename">
+				</div>
+				<div class="right-filed">
+					<label class="fapiao-label" ><span>*</span>申报数量:</label>
+					<input type="text" placeholder="请输入申报数量" v-model="goods.number">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label>单位:</label>
+					<input type="text" placeholder="请输入单位" v-model="goods.unit">
+				</div>
+				<div class="right-filed">
+					<label class="fapiao-label"><span>*</span>清关申报单价:</label>
+					<input type="text" placeholder="请输入清关申报单价" v-model="goods.customsUnit">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label class="fapiao-label">单个成品净重:</label>
+					<input type="text" placeholder="请输入单个成品净重" v-model="goods.netWeight">
+				</div>
+				<div class="right-filed">
+					<label>毛重:</label>
+					<input type="text" placeholder="请输入毛重" v-model="goods.grossWeight">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label class="fapiao-label">国内申报单价:</label>
+					<input type="text" placeholder="请输入国内申报单价" v-model="goods.domesticUnit">
+				</div>
+				<div class="right-filed">
+					<label class="fapiao-label"><span>*</span>箱号:</label>
+					<input type="text" placeholder="请输入箱号" v-model="goods.boxNo">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label>长度:</label>
+					<input type="text" placeholder="请输入外箱规格,单位CM" v-model="goods.long">
+				</div>
+				<div class="right-filed">
+					<label>宽度:</label>
+					<input type="text" placeholder="请输入外箱规格,单位CM" v-model="goods.wide">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label>高度:</label>
+					<input type="text" placeholder="请输入外箱规格,单位CM" v-model="goods.high">
+				</div>
+				<div class="right-filed">
+					<label>货箱编号:</label>
+					<input type="text" placeholder="请输入货箱编号" v-model="goods.boxNumber">
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed">
+					<label class="fapiao-label">带电货物编号:</label>
+					<input type="text" placeholder="请输入带电货物编号" v-model="goods.batteryGoodNo">
+				</div>
+				<div class="right-filed">
+					<label>是否退税:</label>
+					<select class="select-list" style="width: 288px;" v-model="goods.isTax">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+					<i class="sanjiao-icon sanjiao-address"></i>
+				</div>
+			</div>
+			<div class="two-fileds">
+				<div class="left-filed" v-if="goods.isTax == 1" transition="expand">
+					<label>退税品名:</label>
+					<input type="text" placeholder="请输入退税品名" v-model="goods.drawbackName">
+				</div>
+			</div>
+		</div>
+		<div class="hint-action">
+			<div class="hint-button-submit" @click="submit">添加</div>
+			<div class="hint-button-cancel" @click="cancel">取消</div>
+		</div>
+	</div>
+</div>

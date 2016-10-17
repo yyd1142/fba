@@ -1,49 +1,51 @@
-<div class="order-info-view">
-	<div class="order-upload-view">
-		<img src="../../../assets/upload_photo.png">
-		<div class="upload-button">上传产品图片</div>
+<div class="order-info-view" v-for="product in productItems">
+	<div class="order-upload-view" id="imgURLContainer">
+		<img :src="product.productImage || dedaultImage">
+		<div class="upload-button" id="imgURLSelectFile">上传产品图片</div>
+		<div class="image-progress" id="imgURLProgress"></div>
 	</div>
 	<div class="order-info-filed">
 		<div class="order-info-header">
 			<span>产品信息</span>
 			<span></span>
-			<i class="plus-big-icon"></i>
+			<i class="plus-big-icon" v-if="$index == 0" @click="addProduct"></i>
+			<i class="deleted-big-icon" v-else @click="removeProduct($index)"></i>
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>产品名称:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="product.productName">
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>品牌:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="product.brand">
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>型号:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="product.model">
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>原理:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="product.principle">
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>功率:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="product.power">
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>电池型号:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="product.batteryModel">
 		</div>
 	</div>
 </div>

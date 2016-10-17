@@ -16,68 +16,66 @@
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>发货日期:</label>
-			<input type="date" placeholder="Text">
+			<input type="date" placeholder="Text" v-model="invoice.deliveryTime">
 		</div>
 		<div class="right-filed">
 			<label>收货人:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="invoice.contact">
 		</div>
 	</div>
 	<div class="two-fileds" style="height: 182px;">
 		<div class="left-filed">
 			<label>发货人:</label>
-			<textarea placeholder="发货人"></textarea>
+			<textarea placeholder="发货人" v-model="invoice.deliveryContact"></textarea>
 		</div>
 		<div class="right-filed shouhuo-input">
 			<input type="text" placeholder="Text">
 			<input type="text" placeholder="Text">
-			<textarea placeholder="发货人"></textarea>
+			<textarea placeholder="Text"></textarea>
 		</div>
 	</div>
 	<div class="filed-inquiry">
-		<label>货物信息:</label>
-		<i class="goods-plus-icon"></i>
+		<label>货物描述:</label>
+		<i class="goods-plus-icon" style="left: 840px;" @click="addGoodsDesc"></i>
 		<ul class="goods-table">
-			<li class="goods-table-view" v-for="todo in 2">
+			<li class="goods-table-view" v-for="todo in invoice.descGoods" style="width: 750px;">
 				<span class='goods-number'>{{$index + 1}}</span>
-				<input type="number" placeholder="重量" />
-				<span class="goods-unit">KG</span>
-				<input type="number" placeholder="长" />
-				<span class="goods-unit">CM</span>
-				<input type="number" placeholder="宽" />
-				<span class="goods-unit">CM</span>
-				<input type="number" placeholder="高" />
-				<span class="goods-unit">CM</span>
-				<input type="number" placeholder="数量" />
-				<span class="goods-unit">箱</span>
-				<i class="remove-goods-icon" v-if="$index != 0"></i>
+				<input type="text" placeholder="货品描述" style="width: 230px;" v-model="todo.desc"/>
+				<input type="text" placeholder="物品税则编码" style="width: 132px;" v-model="todo.tariffNumber"/>
+				<input type="number" placeholder="数量" v-model="todo.goodsNumber" number/>
+				<input type="number" placeholder="单价" v-model="todo.unitPrice" number/>
+				<input type="number" placeholder="总价" :value="todo.goodsNumber * todo.unitPrice" v-model="todo.totalPrice" disabled/>
+				<i class="remove-goods-icon" v-if="$index != 0" @click="removeGoodsDesc($index)"></i>
 			</li>
 		</ul>
-		<div class="rule-goods">＊如有多箱货物，请按数量填写</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
-			<label>合计:</label>
-			<input type="text" placeholder="Text">
+			<label>合计(元):</label>
+			<input type="text" placeholder="Text" 
+				:value="invoice.descGoods | pluckSum 'unitPrice' 'goodsNumber'" 
+				v-model="invoice.total" disabled>
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>总件数:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" :value="invoice.descGoods.length" v-model="invoice.pieces" disabled>
 		</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>总数量:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" 
+			:value="invoice.descGoods | quantitySum" 
+			v-model="invoice.totalNumber" disabled>
 		</div>
 		<div class="rule-fapiao">我声明发票上所填信息均真实准确</div>
 	</div>
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label class="fapiao-label">发票人签名:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="Text" v-model="invoice.autograph">
 		</div>
 	</div>
 </div>

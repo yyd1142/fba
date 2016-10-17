@@ -1,0 +1,55 @@
+<div class="order-info-view">
+	<div class="order-info-filed">
+		<div class="order-info-header">
+			<span>订单信息</span>
+			<span></span>
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label class="fapiao-label">客户订单号:</label>
+			<input type="text" placeholder="请输入客户订单号" v-model="order.customerOrderID">
+		</div>
+		<div class="right-filed">
+			<label>FBA号:</label>
+			<input type="text" placeholder="请输入FBA号" v-model="order.FBAID">
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>收货地址:</label>
+			<input class="full-input" type="text" placeholder="请输入收货地址" v-model="order.receiptAddress">
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>国家:</label>
+			<input type="text" :value="order.countryID" v-model="order.countryID" disabled>
+		</div>
+		<div class="right-filed">
+			<label>邮编:</label>
+			<input type="text" placeholder="请输入邮编" v-model="order.postCode">
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label>总箱数:</label>
+			<input type="text" placeholder="请输入总箱数" v-model="order.totalNumber">
+		</div>
+		<div class="right-filed">
+			<label class="fapiao-label">敏感货物类型:</label>
+			<select class="select-list" style="width: 290px;" v-model="order.isSensitive">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+			<i class="sanjiao-icon sanjiao-address"></i>
+		</div>
+	</div>
+	<div class="two-fileds">
+		<div class="left-filed">
+			<label class="fapiao-label">备注:</label>
+			<input class="full-input" type="text" placeholder="请输入备注" v-model="order.desc">
+		</div>
+	</div>
+</div>

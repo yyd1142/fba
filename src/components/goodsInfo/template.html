@@ -1,9 +1,8 @@
 <div class="inquiry-view">
-	<div class="place-order-distable" v-if="item.isPlaceOrder"></div>
 	<div class="inquiry-header">
 		<div class="originating-address">
 			<label>起运地</label>
-			<select class="address-list select-list" v-model="item.startAddress" v-on:change="goodsTypeList">
+			<select class="address-list select-list" v-model="formData.startAddress" v-on:change="goodsTypeList" :disabled="formData.isPlaceOrder">
                     <option value="">请选择起运地</option>
                     <option v-for="todo in originatingAddressItems" :value="todo">{{todo.address}}</option>
                 </select>
@@ -12,7 +11,7 @@
 		<i class="fly-icon"></i>
 		<div class="destination-address">
 			<label>目的地</label>
-			<select class="address-list select-list" v-model="item.endAddress" v-on:change="goodsTypeList">
+			<select class="address-list select-list" v-model="formData.endAddress" v-on:change="goodsTypeList" :disabled="formData.isPlaceOrder">
                     <option value="">请选择目的地</option>
                     <option v-for="todo in destinationAddressItems" :value="todo">{{todo.address}}</option>
                 </select>
@@ -22,14 +21,14 @@
 	<form class="inquiry-form">
 		<div class="filed-inquiry">
 			<label>FBA仓库:</label>
-			<input class="select-list fab-list" type="text" placeholder='输出仓库地址' v-model="item.fbaAddress" />
-			<ul class="fba-table-view" v-if="item.hasData">
-				<li class="fba-table-cell" v-for="todo in fbaItems | searchFilter item.fbaAddress" @click="chooseFBA(todo)">{{todo.fullAddress}}</li>
+			<input class="select-list fab-list" type="text" placeholder='输出仓库地址' v-model="formData.fbaAddress" v-on:input="formData.hasData = true;" :disabled="formData.isPlaceOrder"/>
+			<ul class="fba-table-view" v-show="formData.hasData">
+				<li class="fba-table-cell" v-for="todo in fbaItems | filterBy formData.fbaAddress in 'fullAddress'" @click="chooseFBA(todo)">{{todo.fullAddress}}</li>
 			</ul>
 		</div>
 		<div class="filed-inquiry">
 			<label>品名:</label>
-			<select class="select-list fab-list" v-model="item.goodsTypeID" v-on:change="logisticsType">
+			<select class="select-list fab-list" v-model="formData.goodsTypeID" v-on:change="logisticsType" :disabled="formData.isPlaceOrder">
               <option value="">请选择品名</option>
               <option value="" v-if="goodsTypeNotdata">暂无数据</option>
               <option v-for="todo in goodsTypeItems" :value="todo.goodsTypeID">{{todo.goodsTypeName}}</option>
@@ -38,21 +37,21 @@
 		</div>
 		<div class="filed-inquiry">
 			<label>货物信息:</label>
-			<i class="goods-plus-icon" @click="addGoodsInfo"></i>
+			<i class="goods-plus-icon" @click="addGoodsInfo" v-if="!formData.isPlaceOrder"></i>
 			<ul class="goods-table">
-				<li class="goods-table-view" v-for="goods in item.goodsInfo">
+				<li class="goods-table-view" v-for="todo in formData.goodsInfo">
 					<span class='goods-number'>{{$index + 1}}</span>
-					<input type="number" placeholder="重量" v-model="goods.weight " number/>
+					<input type="number" placeholder="重量" v-model="todo.weight " :disabled="formData.isPlaceOrder" number/>
 					<span class="goods-unit">KG</span>
-					<input type="number" placeholder="长" v-model="goods.long " number/>
+					<input type="number" placeholder="长" v-model="todo.long " :disabled="formData.isPlaceOrder" number/>
 					<span class="goods-unit">CM</span>
-					<input type="number" placeholder="宽" v-model="goods.wide " number/>
+					<input type="number" placeholder="宽" v-model="todo.wide " :disabled="formData.isPlaceOrder" number/>
 					<span class="goods-unit">CM</span>
-					<input type="number" placeholder="高" v-model="goods.high " number/>
+					<input type="number" placeholder="高" v-model="todo.high " :disabled="formData.isPlaceOrder" number/>
 					<span class="goods-unit">CM</span>
-					<input type="number" placeholder="数量" v-model="goods.number " number/>
+					<input type="number" placeholder="数量" v-model="todo.number " :disabled="formData.isPlaceOrder" number/>
 					<span class="goods-unit">箱</span>
-					<i class="remove-goods-icon" v-if="$index != 0" @click="removeGoodsInfo($index)"></i>
+					<i class="remove-goods-icon" v-if="$index != 0 && !formData.isPlaceOrder" @click="removeGoodsInfo($index)"></i>
 				</li>
 			</ul>
 			<div class="rule-goods">＊如有多箱货物，请按数量填写</div>
@@ -60,59 +59,93 @@
 		<div class="filed-inquiry" v-if="logisticsShow" transition="expand">
 			<label>物流方式:</label>
 			<div class="input-check">
-				<input type="radio" name="type" v-if="shuangQing" value="1" v-model="item.logisticsID " number>
+				<input type="radio" name="type" v-if="shuangQing" value="1" v-model="formData.logisticsID " :disabled="formData.isPlaceOrder" number>
 				<span class="check-name" v-if="shuangQing">双清</span>
-				<input type="radio" name="type" v-if="kuaiDi" value="2" v-model="item.logisticsID " number>
+				<input type="radio" name="type" v-if="kuaiDi" value="2" v-model="formData.logisticsID " :disabled="formData.isPlaceOrder" number>
 				<span class="check-name" v-if="kuaiDi">快递</span>
 			</div>
 		</div>
 		<div class="filed-inquiry">
 			<label>报关方式:</label>
 			<div class="input-check">
-				<input type="radio" name="todo" v-model="item.declare " value="1" number><span class="check-name">双清包税</span>
-				<input type="radio" name="todo" v-model="item.declare " value="2" number><span class="check-name">单独报关</span>
+				<input type="radio" name="todo" v-model="formData.declare " value="1" :disabled="formData.isPlaceOrder" number><span class="check-name">双清包税</span>
+				<input type="radio" name="todo" v-model="formData.declare " value="2" :disabled="formData.isPlaceOrder" number><span class="check-name">单独报关</span>
 			</div>
 		</div>
 		<div class="filed-inquiry">
 			<label>上门提货:</label>
-			<div class="tihuo-button" @click="item.switchButton = item.switchButton ? false : true">
-				<i class="switch-button-true" v-if="item.switchButton"></i>
+			<div class="tihuo-button" @click="truckAddress">
+				<i class="switch-button-true" v-if="formData.switchButton"></i>
 				<i class="switch-button-false" v-else></i>
 			</div>
 		</div>
-		<div class="filed-inquiry" v-if="item.switchButton" transition="expand">
+		<div class="filed-inquiry" v-if="formData.switchButton" transition="expand">
 			<label>提货地址:</label>
-			<div class="address-filed">
-				<select class="select-list th-address-list" v-model="item.provinceID" v-on:change="cityList">
+			<div class="address-filed" style="margin-left: 15px;">
+				<select class="select-list th-address-list" v-model="formData.provinceID" v-on:change="cityList" :disabled="formData.isPlaceOrder">
                             <option value="">省份</option>
                             <option v-for="todo in provinces" :value="todo.ID">{{todo.Name}}</option>
                         </select>
 				<i class="sanjiao-icon sanjiao-address"></i>
 			</div>
 			<div class="address-filed">
-				<select class="select-list th-address-list" v-model="item.cityID" v-on:change="townList">
+				<select class="select-list th-address-list" v-model="formData.cityID" v-on:change="townList" :disabled="formData.isPlaceOrder">
                             <option value="">城市</option>
                             <option v-for="todo in cities" :value="todo.ID">{{todo.Name}}</option>
                         </select>
 				<i class="sanjiao-icon sanjiao-address"></i>
 			</div>
 			<div class="address-filed">
-				<select class="select-list th-address-list" v-model="item.townID" v-on:change="streetList">
+				<select class="select-list th-address-list" v-model="formData.townID" v-on:change="streetList" :disabled="formData.isPlaceOrder">
                             <option value="">区/县城</option>
                             <option v-for="todo in towns" :value="todo.ID">{{todo.Name}}</option>
                         </select>
 				<i class="sanjiao-icon sanjiao-address"></i>
 			</div>
 			<div class="address-filed">
-				<select class="select-list th-address-list" v-model="item.streetID">
+				<select class="select-list th-address-list" v-model="formData.streetID" :disabled="formData.isPlaceOrder">
                             <option value="">街道</option>
                             <option v-for="todo in streets" :value="todo.ID">{{todo.Name}}</option>
                         </select>
 				<i class="sanjiao-icon sanjiao-address"></i>
 			</div>
+			<div class="address-filed address-detail" v-if="formData.isPlaceOrder && formData.switchButton">
+				<input type="text" placeholder="请输入详细提货地址" v-model="formData.specificAddress"/>
+			</div>
 		</div>
+		<div class="filed-inquiry" v-if="formData.isPlaceOrder && formData.switchButton" transition="expand">
+			<label>&nbsp;</label>
+			<div class="address-filed" style="margin: -3px 0 0 15px;">
+				<select class="select-list th-address-list" v-model="formData.time">
+                            <option value="" selected>提货时间</option>
+                            <option value="09:00">09:00</option>
+							<option value="09:30">09:30</option>
+							<option value="10:00">10:00</option>
+							<option value="10:30">10:30</option>
+							<option value="11:00">11:00</option>
+							<option value="11:30">11:30</option>
+							<option value="12:00">12:00</option>
+							<option value="12:30">12:30</option>
+							<option value="13:00">13:00</option>
+							<option value="13:30">13:30</option>
+							<option value="14:00">14:00</option>
+							<option value="14:30">14:30</option>
+							<option value="15:00">15:00</option>
+							<option value="15:30">15:30</option>
+							<option value="16:00">16:00</option>
+							<option value="16:30">16:30</option>
+							<option value="17:00">17:00</option>
+							<option value="17:30">17:30</option>
+							<option value="18:00">18:00</option>
+							<option value="18:30">18:30</option>
+							<option value="19:00">19:00</option>
+                        </select>
+				<i class="sanjiao-icon sanjiao-address"></i>
+			</div>
+		</div>
+		
 	</form>
-	<div class="form-action" v-if="!item.isPlaceOrder">
+	<div class="form-action" v-if="!formData.isPlaceOrder">
 		<div class="submit-button inquiry-button" @click="submit">询价</div>
 	</div>
 </div>

@@ -2,7 +2,7 @@
 	<header-component></header-component>
 	<div class="page-content">
 		<h2>亚马逊FBA询价</h2>
-		<goods-info :item.sync="formData"></goods-info>
+		<goods-info :form-data.sync="formData"></goods-info>
 		<div id="resultPanle">
 			<div class="inquiry-view" v-if="resultPanle" transition="expand">
 				<div class="inquiry-result-header">

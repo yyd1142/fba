@@ -8,7 +8,7 @@
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>发票:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="请上传发票" v-model="item.invoice">
 		</div>
 		<div class="right-filed">
 			<div class="upload-button-e">上传</div>
@@ -18,17 +18,20 @@
 	<div class="two-fileds">
 		<div class="left-filed">
 			<label>装箱单:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="请上传装箱单" v-model="item.packingBill">
 		</div>
 		<div class="right-filed">
 			<div class="upload-button-e">上传</div>
 			<div class="upload-button-d">发票模板下载</div>
 		</div>
 	</div>
-	<div class="two-fileds">
+	<!--v-if="formData.declare == 2"-->
+	<div class="two-fileds" v-for="todo in item.baoGuanBill" v-show="formData.declare == 2">
 		<div class="left-filed">
 			<label>报关单:</label>
-			<input type="text" placeholder="Text">
+			<input type="text" placeholder="请上传报关单" v-model="todo.url" disabled>
+			<i class="plus-big-icon baoguan-plus-icon" v-if="$index == 0" @click="addBaoGuan"></i>
+			<i class="deleted-big-icon baoguan-plus-icon" v-else @click="removeBaoGuan($index)"></i>
 		</div>
 		<div class="right-filed">
 			<div class="upload-button-e">上传</div>

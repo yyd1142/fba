@@ -54,31 +54,31 @@
                 <span>异常</span>
             </div>
             <ul class="save-table-view">
-                <li class="save-table-cell" v-for="item in 5">
+                <li class="save-table-cell" v-for="item in orderItems">
                     <div class="save-header">
                         <div class="header-left">
-                             <span class="baojia-number">报价编号<br/><span>FMB14222</span></span>
-                             <span class="header-address">深圳Shenzhen</span> 
+                             <span class="baojia-number">报价编号<br/><span>{{item.orderID}}</span></span>
+                             <span class="header-address">{{item.startName}}</span> 
                         </div>
                         <div class="order-status green">进行中</div>
                         <div class="header-right">
-                            <span class="header-address-right">美国UNITEDSTATES</span>
-                            <span class="expiry-date">有效期<br/><span>2016-10-10</span></span>
+                            <span class="header-address-right">{{item.endName}}</span>
+                            <span class="expiry-date">有效期<br/><span>{{item.expires | dateFormatFilter}}</span></span>
                         </div>
                     </div>
                     <div class="save-warp">
                         <!--<i class="invalid-icon"></i>-->
                         <div class="save-left">
-                             <span class="save-type">普货</span>
-                             <span class="save-id">PHL6 CARLISLEPA17015</span> 
+                             <span class="save-type">{{item.typeGoodsName}}</span>
+                             <span class="save-id">{{item.FBAWarehouseName}}</span> 
                         </div>
                         <i class="order-fly-icon"></i>
-                        <div class="save-goods-info">100 KGS<br/>12.92 CBM</div>
+                        <div class="save-goods-info">{{item.weight}} KGS<br/>{{item.volume}} CBM</div>
                         <div class="save-right">
-                            <span class="save-price">7600元</span>
+                            <span class="save-price">{{item.totalPrice}}元</span>
                             <div class="save-action">
                                 <span class="action-button"><i class="view-icon"></i>查看</span>
-                                <span class="action-button"><i class="edit-icon"></i>编辑</span>
+                                <!--<span class="action-button"><i class="edit-icon"></i>编辑</span>-->
                             </div>
                         </div>
                     </div>

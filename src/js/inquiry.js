@@ -17,7 +17,7 @@ module.exports = {
             message: '',
             collectionText: '收藏',
             formData: {
-                hasData: true,
+                hasData: false,
                 FBAWarehouseID: '',
                 startAddress: '',
                 endAddress: '',
@@ -63,7 +63,10 @@ module.exports = {
             };
             if (item.switchButton) {
                 body['truckAddress'] = {
-                    streetID: item.streetID,
+                    "provinceID": item.provinceID,
+                    "cityID": item.cityID,
+                    "townID": item.townID,
+                    "streetID": item.streetID,
                     specificAddress: ""
                 }
             }
@@ -96,7 +99,6 @@ module.exports = {
                     result['pricesInfo'] = JSON.parse(result.pricesInfo);
                     self.inquiryItem = result;
                     self.resultPanle = true;
-                    item.isPlaceOrder = true;
                     item.hasData = false;
                     item.inquiryItem = result;
                     sessionStorage.setItem('inquiryFomrData', JSON.stringify(item));
