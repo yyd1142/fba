@@ -56,6 +56,22 @@ router.map({
   '/user_message': {
     component: require('./views/userMessage.vue'),
     name: 'user'
+  },
+  '/save_info': {
+    component: require('./views/saveInfo.vue'),
+    name: 'user'
+  }
+});
+
+router.beforeEach(function (transition) {
+  if (transition.to.name === 'user') {
+    if(localStorage.getItem("userInfo")){
+      transition.next();
+    }else{
+      transition.redirect('/login#top');
+    }
+  } else {
+    transition.next();
   }
 });
 

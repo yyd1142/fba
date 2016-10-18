@@ -15,25 +15,9 @@ module.exports = {
             rulePanle: false,
             hintShow: false,
             message: '',
-            inquiryItem: {},
             collectionText: '收藏',
-            formData: {
-                hasData: false,
-                FBAWarehouseID: '',
-                startAddress: '',
-                endAddress: '',
-                isPlaceOrder: false,
-                fbaAddress: '',
-                goodsTypeID: '',
-                goodsInfo: [{ weight: '', long: '', wide: '', high: '', number: '' }],
-                logisticsID: '',
-                declare: '',
-                switchButton: false,
-                provinceID: '',
-                cityID: '',
-                townID: '',
-                streetID: ''
-            }
+            inquiryItem: {},
+            formData: JSON.parse(sessionStorage.getItem('inquiryFomrData'))
         }
 
     },

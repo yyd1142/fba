@@ -32,8 +32,9 @@ module.exports = {
             if (sessionStorage.getItem('endAddress')) {
                 this.formData.endAddress = JSON.parse(sessionStorage.getItem('endAddress'));
             }
-
-            if (this.formData.isPlaceOrder) {
+            
+            if (this.formData.isPlaceOrder || this.$route.query.is_save) {
+                console.log(this.formData)
                 this.cityList();
                 this.townList();
                 this.streetList();

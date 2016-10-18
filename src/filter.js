@@ -17,6 +17,14 @@ Vue.filter('dateFormatFilter', function (date) {
     }
 });
 
+Vue.filter('dateFormatFilter2', function (date) {
+    if (date == null || date === undefined) {
+        return '- -'
+    } else {
+        return moment(new Date(date)).format("YYYY-MM-DD") + '<br/>' + moment(new Date(date)).format("HH:mm:ss");
+    }
+});
+
 Vue.filter('typeFilter', function (type) {
     if (type == 1) {
         return '（微信课堂）';

@@ -249,12 +249,12 @@ module.exports = {
             this.invoiceInfo = data;
         },
         'submit-callback': function (message) {
-            if (message == '下单成功' || message == '下单失败') {
+            if (message == '下单成功') {
                 this.$router.go("/user_order#top");
             }
         },
         'cancel-callback': function (message) {
-            if (message == '下单成功' || message == '下单失败') {
+            if (message == '下单成功') {
                 this.$router.go("/user_order#top");
             }
         }

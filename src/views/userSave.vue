@@ -26,7 +26,7 @@
                         <div class="save-right">
                             <span class="save-price">{{item.totalPrice}}元</span>
                             <div class="save-action">
-                                <span class="action-button"><i class="view-icon"></i>查看</span>
+                                <span class="action-button" @click="info(item)"><i class="view-icon"></i>查看</span>
                                 <!--<span class="action-button"><i class="edit-icon"></i>编辑</span>-->
                             </div>
                         </div>

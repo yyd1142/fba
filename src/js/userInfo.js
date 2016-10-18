@@ -16,20 +16,23 @@ module.exports = {
             message: '',
             userItem: {
                 "id": '',
-                "userName":"",
-                "email":"",
-                "mobile":"",
-                "company":"",
-                "phone":"",
-                "headURL":"",
-                "postcode":"",
-                "salesmanID":'',
-                "salesman":{},
-                "address":""},
-            countryID: '',
-            provinceID: '',
-            cityID: '',
-            townID: '',
+                "userName": "",
+                "email": "",
+                "mobile": "",
+                "company": "",
+                "phone": "",
+                "headURL": "",
+                "postcode": "",
+                "salesmanID": '',
+                "addressID": '',
+                "countryID": '',
+                "provinceID": '',
+                "cityID": '',
+                "townID": '',
+                "streetID": '',
+                "specificAddress": "",
+                "salesman": {}
+            },
             countries: [],
             provinces: [],
             cities: [],
@@ -46,7 +49,7 @@ module.exports = {
     },
     methods: {
         userInfo() {
-            if(!isUserItemUpdate){
+            if (!isUserItemUpdate) {
                 this.userItem = isUserItem;
                 return false;
             }
@@ -59,6 +62,13 @@ module.exports = {
             this.$httpGet('user', params, function (code, data) {
                 if (code == 0) {
                     self.userItem = data.response;
+                    console.log(self.userItem);
+                    if (self.userItem.addressID != null) {
+                        self.provinceList();
+                        self.cityList();
+                        self.townList();
+                        self.streetList();
+                    }
                     isUserItem = data.response;
                     isUserItemUpdate = false;
                 } else {
@@ -67,11 +77,18 @@ module.exports = {
             });
         },
         editInfo() {
-            console.log(JSON.stringify(this.userItem))
             let self = this;
-            let params = this.userItem;
-            params['m'] = 'update';
-            this.$httpGet('user', params, function (code, data) {
+            let body = this.userItem;
+            body['m'] = 'update';
+            body['address'] = {
+                "countryID": this.userItem.countryID,
+                "provinceID": this.userItem.provinceID,
+                "cityID": this.userItem.cityID,
+                "townID": this.userItem.townID,
+                "streetID": this.userItem.streetID,
+                "specificAddress": this.userItem.specificAddress
+            };
+            this.$httpPost('user', null, body, function (code, data) {
                 if (code == 0) {
                     isUserItemUpdate = true;
                     self.userInfo();
@@ -93,14 +110,17 @@ module.exports = {
                 }
             });
         },
-        provinceList() {
-            this.provinceID = '';
-            this.cityID = '';
-            this.townID = '';
+        provinceList(type) {
+            if (type == 1) {
+                this.userItem.provinceID = '';
+                this.userItem.cityID = '';
+                this.userItem.townID = '';
+                this.userItem.streetID = '';
+            }
             let self = this;
             let params = {
                 m: 'province',
-                countryID: this.countryID
+                countryID: this.userItem.countryID
             };
             this.$httpGet('address', params, function (code, data) {
                 if (code == 0) {
@@ -108,13 +128,16 @@ module.exports = {
                 }
             });
         },
-        cityList() {
-            this.cityID = '';
-            this.townID = '';
+        cityList(type) {
+            if (type == 1) {
+                this.userItem.cityID = '';
+                this.userItem.townID = '';
+                this.userItem.streetID = '';
+            }
             let self = this;
             let params = {
                 m: 'city',
-                provinceID: this.provinceID
+                provinceID: this.userItem.provinceID
             };
             this.$httpGet('address', params, function (code, data) {
                 if (code == 0) {
@@ -122,12 +145,15 @@ module.exports = {
                 }
             });
         },
-        townList() {
-            this.townID = '';
+        townList(type) {
+            if (type == 1) {
+                this.userItem.townID = '';
+                this.userItem.streetID = '';
+            }
             let self = this;
             let params = {
                 m: 'town',
-                cityID: this.cityID
+                cityID: this.userItem.cityID
             };
             this.$httpGet('address', params, function (code, data) {
                 if (code == 0) {
@@ -135,11 +161,14 @@ module.exports = {
                 }
             });
         },
-        streetList() {
+        streetList(type) {
+            if(type == 1){
+                this.userItem.streetID = '';
+            }
             let self = this;
             let params = {
                 m: 'street',
-                townID: this.townID
+                townID: this.userItem.townID
             };
             this.$httpGet('address', params, function (code, data) {
                 if (code == 0) {

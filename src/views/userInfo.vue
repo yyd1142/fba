@@ -30,37 +30,44 @@
                    </div>
                    <div class="user-filed">
                         <label>地址</label>
-                        <div class="select-list-user">
-                            <select v-model="countryID" v-on:change="provinceList">
+                        <div class="select-list-user user-address">
+                            <select v-model="userItem.countryID" v-on:change="provinceList(1)" number>
                                 <option value="">国家</option>
                                 <option v-for="todo in countries" :value="todo.ID">{{todo.Name}}</option>
                             </select>
                             <i class="sanjiao-icon sanjiao-user"></i>
                         </div>
-                        <div class="select-list-user">
-                            <select v-model="provinceID" v-on:change="cityList">
+                        <div class="select-list-user user-address">
+                            <select v-model="userItem.provinceID" v-on:change="cityList(1)" number>
                                 <option value="">省份/州</option>
                                 <option v-for="todo in provinces" :value="todo.ID">{{todo.Name}}</option>
                             </select>
                             <i class="sanjiao-icon sanjiao-user"></i>
                         </div>
-                        <div class="select-list-user">
-                            <select v-model="cityID" v-on:change="townList">
+                        <div class="select-list-user user-address">
+                            <select v-model="userItem.cityID" v-on:change="townList(1)" number>
                                 <option value="">城市</option>
                                 <option v-for="todo in cities" :value="todo.ID">{{todo.Name}}</option>
                             </select>
                             <i class="sanjiao-icon sanjiao-user"></i>
                         </div>
-                        <div class="select-list-user">
-                            <select v-model="townID" v-on:change="streetList">
+                        <div class="select-list-user user-address">
+                            <select v-model="userItem.townID" v-on:change="streetList(1)" number>
                                 <option value="">区/县</option>
                                 <option v-for="todo in towns" :value="todo.ID">{{todo.Name}}</option>
                             </select>
                             <i class="sanjiao-icon sanjiao-user"></i>
                         </div>
+                        <div class="select-list-user user-address">
+                            <select v-model="userItem.streetID" number>
+                                <option value="">街道</option>
+                                <option v-for="todo in streets" :value="todo.ID">{{todo.Name}}</option>
+                            </select>
+                            <i class="sanjiao-icon sanjiao-user"></i>
+                        </div>
                    </div>
                    <div class="user-filed">
-                        <input class="user-full-input" type="text" placeholder="请输入详细地址" v-model="userItem.address"/>
+                        <input class="user-full-input" type="text" placeholder="请输入详细地址" v-model="userItem.specificAddress"/>
                    </div>
                    <div class="user-filed">
                         <label>邮政编码</label>
