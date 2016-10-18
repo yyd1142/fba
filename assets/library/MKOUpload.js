@@ -1,6 +1,6 @@
 host = 'http://mko-test.oss-cn-shenzhen.aliyuncs.com';
 
-var randomString = function(len){
+var randomString = function (len) {
 	len = len || 32;
 	var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
 	var maxPos = $chars.length;
@@ -15,35 +15,35 @@ var randomString = function(len){
 
 var storageSignInfo = {};
 
-function MKOUpload(buttonID, containerID, callback){
+function MKOUpload(buttonID, containerID, callback) {
 	var self = this;
 	this.currentFile = null;
 
 	var multipart_params = {};
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
-		browse_button : buttonID,
+		runtimes: 'html5,flash,silverlight,html4',
+		browse_button: buttonID,
 		container: document.getElementById(containerID),
-		flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
-		silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
-		url : host,
+		flash_swf_url: 'lib/plupload-2.1.2/js/Moxie.swf',
+		silverlight_xap_url: 'lib/plupload-2.1.2/js/Moxie.xap',
+		url: host,
 		multipart_params: null,
 		filters: {
-			mime_types : [
-				{ title : "Image files", extensions : "jpg,gif,png,jpeg" }
+			mime_types: [
+				{ title: "Image files", extensions: "jpg,gif,png,jpeg" }
 			],
 			max_file_size: "5mb",
 			prevent_duplicates: true
 		},
 		init: {
-			PostInit: function() {
+			PostInit: function () {
 			},
-			FilesAdded: function(up, files) {
+			FilesAdded: function (up, files) {
 				self.currentFile = files[0];
 				Object.assign(multipart_params, storageSignInfo);
 				var fileName = randomString(16);
 				var fileExt = self.currentFile.name.split('.').pop();
-				if (fileExt != self.currentFile.name){
+				if (fileExt != self.currentFile.name) {
 					fileName = fileName + '.' + fileExt;
 				}
 				multipart_params.key = fileName;
@@ -52,33 +52,33 @@ function MKOUpload(buttonID, containerID, callback){
 					'url': host,
 					'multipart_params': multipart_params
 				});
-				callback('filesAdd', {file: self.currentFile});
+				callback('filesAdd', { file: self.currentFile });
 				uploader.start();
 			},
 
-			UploadProgress: function(up, file) {
-				callback('uploadProgress', {file: file});
+			UploadProgress: function (up, file) {
+				callback('uploadProgress', { file: file });
 			},
 
-			FileUploaded: function(up, file, info) {
+			FileUploaded: function (up, file, info) {
 				var url = host + '/' + multipart_params.key;
-				callback('fileUploaded', {file: file, url: url});
+				callback('fileUploaded', { file: file, url: url });
 				uploader.removeFile(file);
 				self.currentFile = null;
 			},
 
-			Error: function(up, err) {
-				callback('error', {error: error});
+			Error: function (up, err) {
+				callback('error', { error: error });
 			}
 		}
 	});
 
-	this.cancel = function(){
-		if (uploader.state == plupload.STARTED){
-			callback('cancel', {file: self.currentFile});
+	this.cancel = function () {
+		if (uploader.state == plupload.STARTED) {
+			callback('cancel', { file: self.currentFile });
 			uploader.stop();
 		}
-		if (self.currentFile){
+		if (self.currentFile) {
 			uploader.removeFile(self.currentFile);
 			self.currentFile = null;
 		}
@@ -87,7 +87,7 @@ function MKOUpload(buttonID, containerID, callback){
 }
 
 
-function MKOUploaderManager(){
+function MKOUploaderManager() {
 	var uploaders = {};
 	var uploaderCount = 0;
 	// $.ajax({
@@ -123,32 +123,23 @@ function MKOUploaderManager(){
 	 		completedCallback: function(context, url)
 		}
 	 */
-	this.newUploader = function(opts){
+	this.newUploader = function (opts) {
 		this.uploaderCount += 1;
-		var tmpUploader = new MKOUpload(opts.button, opts.container, function(type, value) {
+		var tmpUploader = new MKOUpload(opts.button, opts.container, function (type, value) {
 			if (type == 'filesAdd') {
-				if (typeof opts.beforeCallback == 'function'){
+				if (typeof opts.beforeCallback == 'function') {
 					opts.beforeCallback(opts.context);
 				}
-				// $('#' + opts.progressBar).progress({
-				// 	percent: 0
-				// });
 			} else if (type == 'uploadProgress') {
-				// $("#" + opts.label).text('正在上传' + value.file.percent + '%...');
-				// $('#' + opts.progressBar).progress({
-				// 	percent: value.file.percent
-				// });
-				// if (value.file.percent == 100) {
-				// 	$("#" + opts.label).text('上传成功!');
-				// }
+				$("#" + opts.label).text('正在上传' + value.file.percent + '%...');
+				if (value.file.percent == 100) {
+					$("#" + opts.label).text('上传成功!');
+				}
 			} else if (type == 'fileUploaded') {
-				// setTimeout(function () {
-					// $("#" + opts.label).text('选择文件');
-					// $('#' + opts.progressBar).progress({
-					// 	percent: 0
-					// });
-				// }, 500);
-				if (typeof opts.completedCallback == 'function'){
+				setTimeout(function () {
+					$("#" + opts.label).text('选择文件');
+				}, 500);
+				if (typeof opts.completedCallback == 'function') {
 					opts.completedCallback(opts.context, value.url);
 				}
 			} else if (type == 'error') {
@@ -160,15 +151,15 @@ function MKOUploaderManager(){
 		return uploaderCount.toString();
 	}
 
-	this.cancelAll = function(){
-		for (var key in uploaders){
+	this.cancelAll = function () {
+		for (var key in uploaders) {
 			var uploader = uploaders[key];
 			uploader.cancel();
 		}
 	}
 
-	this.removeByUploaderID = function(uploaderID){
-		if (uploaderID in uploaders){
+	this.removeByUploaderID = function (uploaderID) {
+		if (uploaderID in uploaders) {
 			var uploader = uploaders[uploaderID];
 			uploader.cancel();
 			delete uploaders[uploaderID];
